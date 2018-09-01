@@ -1,6 +1,7 @@
 package hdzi.swordsman.kotlin
 
 import hdzi.swordsman.java._02_FunctionInterfaceToKotlin
+import java.lang.StringBuilder
 import kotlin.reflect.KProperty
 
 /**
@@ -263,3 +264,21 @@ fun callJavaFunctionInterface() {
     functionInterface.aFun { println("it's called.") } //调用Java接口
 
 }
+
+/**
+ * 用with简化代码
+ * 和扩展函数类似
+ */
+fun alphabet() = with(StringBuilder()) {
+    ('A'..'Z').forEach { append(it) } //直接调用方法
+    toString() //返回最后语句的值
+}
+
+/**
+ * 和with相似的apply
+ * apply总是返回调用者
+ */
+
+fun alphabet2() = StringBuilder().apply {
+    ('A'..'Z').forEach { append(it) } //直接调用方法
+}.toString() // 返回调用者后 toString
