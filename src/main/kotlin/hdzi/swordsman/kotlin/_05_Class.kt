@@ -1,5 +1,6 @@
 package hdzi.swordsman.kotlin
 
+import hdzi.swordsman.java._02_FunctionInterfaceToKotlin
 import kotlin.reflect.KProperty
 
 /**
@@ -248,4 +249,17 @@ fun useConstruction(): Person {
 fun useInstanceFun(p: Person): String {
     val f = p::name
     return f()
+}
+
+/**
+ * 调用java函数式接口
+ */
+fun callJavaFunctionInterface() {
+    val functionInterface = _02_FunctionInterfaceToKotlin {
+        // 实现Java接口
+        print("it's done.")
+    }
+
+    functionInterface.aFun { println("it's called.") } //调用Java接口
+
 }
