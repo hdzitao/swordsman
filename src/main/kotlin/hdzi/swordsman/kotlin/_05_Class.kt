@@ -282,3 +282,74 @@ fun alphabet() = with(StringBuilder()) {
 fun alphabet2() = StringBuilder().apply {
     ('A'..'Z').forEach { append(it) } //直接调用方法
 }.toString() // 返回调用者后 toString
+
+/**
+ * 可空类型
+ */
+fun ableNull(s: String?) { // 在类型后加 ? 表示变量可以为null
+    // s.toUpperCase() 可控类型不能直接调用方法
+
+    // 安全调用符:如果s为null返回null,所以su也是可空类型
+    var su = s?.toUpperCase()
+
+    // 用 ?: 来为可空类型提供默认值,sue不是可空类型
+    var sue = s?.toUpperCase() ?: ""
+
+    // 安全转换 as?
+    var ss = s as? Any // 如果s能转换为Any就转换,不能就返回null
+
+    // !! 非空断言
+    var sss = s!!
+}
+
+// 用扩展函数来处理可空类型
+fun String?.isNullOrBlank() = this == null || this.isBlank()
+// 直接调用isNullOrBlank,不用 ?.
+fun stringIsNullOrBlank(s: String?) = s.isNullOrBlank()
+
+/**
+ * 注意,泛型是可空的
+ */
+fun <T> printHashCode(t: T) {
+    println(t?.hashCode()) // 要用安全调用符
+}
+
+/**
+ * Java的@NotNull和@Nullable注解对应了kotlin基本类型和可空类型
+ *
+ * 平台类型 Any!
+ * 对应Java中没有标注的参数,kotlin把他们当做平台类型,可以像基本类型一样调用方法,但一旦遇到null就抛异常(和Java一样)
+ * Any! 类型只能在kotlin内部使用,不能用于声明,对于Java返回的类型,可以声明成 Any 或 Any? ,但如果是Any类型,一旦返回null
+ * 立即抛异常
+ */
+
+/**
+ * 使⽤类型检测及⾃动类型转换
+ */
+fun getLength(obj: Any): Int? {
+    if (obj is String) {
+        return obj.length // is 检测后可以当String使用
+    }
+
+    when (obj) {
+        is Array<*> -> obj.size
+    }
+
+    return null
+}
+
+/**
+ * 强转符 as
+ */
+fun <T> asT(t: Any): T {
+    return t as T
+}
+
+/**
+ * 数字转换
+ */
+fun intInLongList() {
+    val l = listOf(1L, 2L, 3L)
+    val i : Int = 1
+    println(i.toLong() in l) // 不匹配的类型不能比较,即使是Int和Long
+}
