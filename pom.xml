@@ -10,6 +10,7 @@
         <groovy.version>2.5.2</groovy.version>
         <kotlin.version>1.2.60</kotlin.version>
         <scala.version>2.12.6</scala.version>
+        <clojure.version>1.9.0</clojure.version>
     </properties>
 
     <dependencies>
@@ -36,6 +37,12 @@
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-reflect</artifactId>
             <version>${kotlin.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.clojure</groupId>
+            <artifactId>clojure</artifactId>
+            <version>${clojure.version}</version>
         </dependency>
     </dependencies>
 
@@ -68,6 +75,7 @@
                                 <source>src/main/groovy</source>
                                 <source>src/main/kotlin</source>
                                 <source>src/main/scala</source>
+                                <source>src/main/clojure</source>
                             </sources>
                         </configuration>
                     </execution>
@@ -82,6 +90,7 @@
                                 <source>src/test/groovy</source>
                                 <source>src/test/kotlin</source>
                                 <source>src/test/scala</source>
+                                <source>src/test/clojure</source>
                             </sources>
                         </configuration>
                     </execution>
@@ -97,11 +106,6 @@
                         <goals>
                             <goal>compile</goal>
                         </goals>
-                        <!--<configuration>-->
-                            <!--<sourceDirs>-->
-                                <!--<source>src/main/kotlin</source>-->
-                            <!--</sourceDirs>-->
-                        <!--</configuration>-->
                     </execution>
                     <execution>
                         <id>test-compile</id>
@@ -109,11 +113,6 @@
                         <goals>
                             <goal>test-compile</goal>
                         </goals>
-                        <!--<configuration>-->
-                            <!--<sourceDirs>-->
-                                <!--<source>src/test/kotlin</source>-->
-                            <!--</sourceDirs>-->
-                        <!--</configuration>-->
                     </execution>
                 </executions>
             </plugin>
@@ -145,7 +144,26 @@
                     </execution>
                 </executions>
             </plugin>
-
+            <plugin>
+                <groupId>com.theoryinpractise</groupId>
+                <artifactId>clojure-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>compile</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>test</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 </project>
