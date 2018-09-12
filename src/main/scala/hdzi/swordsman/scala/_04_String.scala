@@ -23,5 +23,8 @@ object _04_String {
     // 符号
     val sym = 'abc
 
+    // 字符
+    val c = 'a'
+
   }
 }

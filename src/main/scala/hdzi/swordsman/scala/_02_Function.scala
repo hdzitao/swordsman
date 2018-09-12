@@ -104,4 +104,12 @@ object _02_Function {
     */
   @tailrec
   def findFixPoint(x: Double = 1.0): Double = if (x == Math.cos(x)) x else findFixPoint(Math.cos(x))
+
+  /**
+    * 函数返回多值
+    * 用 _1, _2, _3 索引
+    */
+  def mutiValue(): (Int, String) = {
+    return (1, "one")
+  }
 }
