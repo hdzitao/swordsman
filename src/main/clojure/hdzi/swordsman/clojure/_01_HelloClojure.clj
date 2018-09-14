@@ -1,3 +1,4 @@
-(ns hdzi.swordsman.clojure._01_HelloClojure)
+(ns hdzi.swordsman.clojure._01_HelloClojure
+  (:gen-class))
 
 (println "Hello Clojure!!")
