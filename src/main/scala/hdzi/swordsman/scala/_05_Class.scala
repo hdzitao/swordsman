@@ -4,7 +4,6 @@ package hdzi.swordsman.scala
   * Created by taojinhou on 2018/8/20.
   */
 object _05_Class {
-
   // 在主构造器前不加限定符即为public
   class Person private(val name: String, var age: Int) { // 主构造函数,自动定义属性和访问器
     def this(name: String) {
@@ -36,8 +35,24 @@ object _05_Class {
     }
   }
 
+  /**
+    * 伴生对象
+    */
+  object Person {
+    /**
+      * 利用 apply 方法直接用类名创建对象
+      *
+      * @param name
+      * @param age
+      * @return
+      */
+    def apply(name: String, age: Int): Person = new Person(name, age)
+  }
+
   def main(args: Array[String]): Unit = {
     // new 一个实例
     val person = new Person()
+    // 利用 apply 方法直接用类名创建对象
+    val person2 = Person("name", 20)
   }
 }
