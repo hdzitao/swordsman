@@ -1,7 +1,6 @@
 package hdzi.swordsman.kotlin
 
 import hdzi.swordsman.java._02_FunctionInterfaceToKotlin
-import java.lang.StringBuilder
 import kotlin.reflect.KProperty
 
 /**
@@ -85,7 +84,7 @@ val person = Person()
  */
 
 // kotlin的类默认是 final 的,不能继承,需要手工指定可继承: open
-open class Base(p: Int) {
+open class Base {
     open fun v() {} // 手工指定可重写
     fun nv() {} // 默认不可重新
 
@@ -93,6 +92,7 @@ open class Base(p: Int) {
 }
 
 interface IBase {
+    val p: Int //抽象字段
     fun v() {}
 }
 
@@ -103,7 +103,7 @@ interface IBase {
  * 设计⼀个基类时，应该避免在构造函数、属性初始化器以及 init 块中使⽤ open 成员
  */
 // 继承时就要指定 父类构造函数
-class Derived( /* override */ p: Int) : Base(p), IBase { // 主构造函数中也可以加 override
+class Derived(override val p: Int) : Base(), IBase { // 主构造函数中也可以加 override
     // override关键字表示重写,默认open.注意如果父类函数提供了参数默认值,子类重写就不能有默认值
     /* final(不可再次重写) */ override fun v() {
         super<Base>.v() // 继承来多个同名方法,需要自实现,通过 super<Base> 访问相应父类方法
@@ -172,7 +172,7 @@ class Out : Expr() {
  * 匿名类
  */
 // 对象表达式
-val out = object : Base(1) { // 可以不继承类,一个通用的object
+val out = object : Base() { // 可以不继承类,一个通用的object
     override fun v() {}
 }
 

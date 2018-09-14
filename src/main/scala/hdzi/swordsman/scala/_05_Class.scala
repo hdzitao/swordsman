@@ -55,4 +55,17 @@ object _05_Class {
     // 利用 apply 方法直接用类名创建对象
     val person2 = Person("name", 20)
   }
+
+  /**
+    * 继承
+    */
+  class Base
+
+  trait BaseInterface1
+
+  trait BaseInterface2
+
+  class Sub extends Base with BaseInterface1 with BaseInterface2
+
+  class Sub2 extends BaseInterface1 with BaseInterface2 // 只有接口也用 extends
 }
