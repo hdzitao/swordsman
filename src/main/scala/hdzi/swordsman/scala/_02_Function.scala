@@ -100,7 +100,8 @@ object _02_Function {
   }
 
   /**
-    * 尾递归优化
+    * 强制 尾递归优化
+    * scala会自动尝试尾递归优化，默认情况下不报告是否成功，该注解强制尾递归必须成功，失败则报错
     */
   @tailrec
   def findFixPoint(x: Double = 1.0): Double = if (x == Math.cos(x)) x else findFixPoint(Math.cos(x))
