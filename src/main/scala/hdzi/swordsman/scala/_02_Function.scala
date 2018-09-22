@@ -113,4 +113,9 @@ object _02_Function {
   def mutiValue(): (Int, String) = {
     return (1, "one")
   }
+
+  /**
+    * inline
+    */
+  @inline def getI: Int = 1
 }
