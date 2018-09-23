@@ -118,4 +118,35 @@ object _02_Function {
     * inline
     */
   @inline def getI: Int = 1
+
+  /**
+    * 非严格函数
+    * 类似 SICP 里讲到的 正则序，
+    * 函数的参数不一定求值
+    * 主要的原理是将参数包装成函数
+    */
+  // 没有用scala提供的语法糖
+  def if2[T](cond: Boolean, onTrue: () => T, onFalse: () => T): T = {
+    if (cond) onTrue() else onFalse()
+  }
+
+  // 用了scala语法糖
+  def if3[T](cond: Boolean, onTrue: => T, onFalse: => T): T = {
+    if (cond) onTrue else onFalse
+  }
+
+  def useIf() = {
+    if2(true, () => println("yes"), () => println("no"))
+    if3(true, println("yes"), println("no")) // onTrue和onFalse会自动包装
+    if3(true, {
+      println("1")
+      println("2")
+      println("3")
+    }, {
+      println("4")
+      println("5")
+      println("6")
+    })
+  }
+
 }
