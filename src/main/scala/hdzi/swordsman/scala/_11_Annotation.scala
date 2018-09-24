@@ -1,10 +1,16 @@
 package hdzi.swordsman.scala
 
+
+@MyAnnotation
+class MyClass
+
 object _11_Annotation {
 
-  class MyAnnotation extends annotation.ClassfileAnnotation
-
-  @MyAnnotation
-  class MyClass
+  def main(args: Array[String]): Unit = {
+    val klass = classOf[MyClass]
+    klass.getAnnotations.foreach {
+      println(_)
+    }
+  }
 
 }
