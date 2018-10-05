@@ -4,6 +4,7 @@ package hdzi.swordsman.scala
   * Created by taojinhou on 2018/8/20.
   */
 object _05_Class {
+
   // 在主构造器前不加限定符即为public
   class Person private(val name: String, var age: Int) { // 主构造函数,自动定义属性和访问器
     def this(name: String) {
@@ -49,7 +50,7 @@ object _05_Class {
     def apply(name: String, age: Int): Person = new Person(name, age)
   }
 
-  def main(args: Array[String]): Unit = {
+  def newPerson(): Unit = {
     // new 一个实例
     val person = new Person()
     // 利用 apply 方法直接用类名创建对象
@@ -68,4 +69,55 @@ object _05_Class {
   class Sub extends Base with BaseInterface1 with BaseInterface2
 
   class Sub2 extends BaseInterface1 with BaseInterface2 // 只有接口也用 extends
+
+  /**
+    * trait混入
+    *
+    * super查找方法路径:
+    *                T
+    *                ^^
+    *                <<<<<<<<<<<<<<<
+    * class A extends B with C with D{
+    *                              ^^
+    *     override def ...===========
+    * }       ^^
+    *         ^^
+    *         <<<<<<<<<<<<<<<<<<<
+    * val i = new A with E with F
+    */
+  trait Implement {
+    def show(): Unit
+  }
+
+  trait Implement1 extends Implement {
+    // 方法体内调用了一个抽象方法，得用abstract修饰。
+    // 此trait无法正常被class extends了，因为不能保证其super路径上一定有实现
+    // 要解决这个问题:
+    // 1. 在继承此trait之前，继承一个实现了show()方法的trait或类，确保其super路径上有实现：
+    //    class MixIn extends ImplementShow(实现了show方法) with Implement1
+    // 2. 可以给Implement的show方法一个默认空实现，这样就不用abstract修饰了，一切又正常了
+    abstract override def show(): Unit = {
+      println(1)
+      super.show()
+    }
+  }
+
+  trait Implement2 extends Implement {
+    abstract override def show(): Unit = {
+      println(2)
+      super.show()
+    }
+  }
+
+  class MixIn extends Implement {
+    override def show(): Unit = {
+      println(4)
+    }
+  }
+
+  def main(args: Array[String]): Unit = {
+    val m = new MixIn with Implement2
+    m.show()
+  }
+
 }
