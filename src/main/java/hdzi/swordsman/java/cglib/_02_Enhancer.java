@@ -14,8 +14,11 @@ public class _02_Enhancer {
     }
 
     public static void main(String[] args) {
+        // new 一个增强类
         Enhancer enhancer = new Enhancer();
+        // 动态设置其父类
         enhancer.setSuperclass(_02_Enhancer.class);
+        /* 设置拦截器 */
         // 一个Filter对应一个callback（用相同的数组下标）
         enhancer.setCallbackFilter(method -> {
             if (method.getReturnType() == String.class) {

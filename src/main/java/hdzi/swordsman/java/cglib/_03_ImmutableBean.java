@@ -14,13 +14,14 @@ public class _03_ImmutableBean {
     }
 
     public static void main(String[] args) {
+        // new 一个普通bean
         _03_ImmutableBean bean = new _03_ImmutableBean();
         bean.setValue("tao");
-
+        // 根据普通bean生成不可改变bean
         _03_ImmutableBean immutableBean = (_03_ImmutableBean) ImmutableBean.create(bean);
 
         System.out.println(immutableBean.getValue());
-
+        // 不可改变bean调用set方法报错
         try {
             immutableBean.setValue("jin");
         } catch (IllegalStateException e) {
