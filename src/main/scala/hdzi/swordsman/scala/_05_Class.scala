@@ -102,7 +102,7 @@ object _05_Class {
     }
   }
 
-  trait Implement2 extends Implement {
+  trait Implement2 extends Implement1 {
     abstract override def show(): Unit = {
       println(2)
       super.show()
@@ -115,9 +115,19 @@ object _05_Class {
     }
   }
 
+  class MixIn2 extends MixIn with Implement1 {
+    override def show(): Unit = {
+      println(5)
+      super.show()
+    }
+  }
+
   def main(args: Array[String]): Unit = {
     val m = new MixIn with Implement2
     m.show()
+
+    val m2 = new MixIn2
+    m2.show()
   }
 
 }
