@@ -25,9 +25,9 @@ object _07_Collections {
   val list2 = 1 :: 2 :: 3 :: 4 :: Nil
 
   /**
-    * 可变列表
-    */
-  val mlist = mutable.MutableList(1, 2, 3, 4)
+   * 可变列表
+   */
+  val mlist = mutable.ListBuffer(1, 2, 3, 4)
 
   /**
     * map
