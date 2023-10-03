@@ -1,5 +1,7 @@
 package hdzi.swordsman.groovy
 
+import groovy.transform.Immutable
+
 import java.util.regex.Pattern
 
 /**
@@ -143,3 +145,87 @@ class PlusEle {
 }
 
 new PlusEle() + new PlusEle()
+
+//==
+//混用java5
+// 自动装箱
+int intVal = 1;
+println intVal.getClass().name // => java.lang.Integer
+
+// for-each
+for (int i : [1, 2, 3, 4, 5]) {
+    print "${i} "
+}
+println()
+
+//enum
+enum EnumExample {
+    ONE, TWO
+}
+// 可变参数
+def vararg(int ... intArr) {
+    println intArr.getClass().name
+}
+
+vararg(1, 2, 3)
+
+//泛型
+List<String> strList = new ArrayList<>()
+
+//==
+//groovy变换注解
+//委托
+class Worker1 {
+    def work() {
+        println "work1"
+        return this
+    }
+}
+
+class Worker2 {
+    def work() {
+        println "work2"
+        return this
+    }
+}
+
+class Manager {
+    @Delegate
+    Worker1 worker1 = new Worker1() // 委托 work方法
+    @Delegate
+    Worker2 worker2 = new Worker2() // work方法已经存在,忽略
+}
+
+new Manager().work() // => work1
+
+//不可变,字段全final
+@Immutable
+class CreditCard {
+    String number
+    int limit
+}
+
+//延迟初始化
+class Heavy {
+    @Lazy
+    String big = "........"
+}
+
+//类同名构造器
+class New {
+}
+
+@Newify([New])
+class UseNew {
+    def n1 = New() // python风格
+    def n2 = New.new() // ruby风格
+}
+
+//单例
+@Singleton(lazy = true)
+class SingletonExample {
+
+}
+
+println SingletonExample.instance
+
